@@ -1,18 +1,33 @@
 #!/usr/bin/env python3
-
-#_UNIGENE_DIR = "ssh yin.hang1@defiance.neu.edu -t 'cd /data/PROGRAMMING/assignment5; bash --login'"
-#ssh yin.hang1@defiance.neu.edu 'cd /data/PROGRAMMING/assignment5'
+"""
+submodule of my_io.py and get_gene_info.py
+"""
 
 _UNIGENE_DIR = "./data_directories"
 _UNIGENE_FILE_ENDING = "unigene"
 
+
 def get_unigene_directory():
+    """
+    file directory path
+    :return:
+    """
     return _UNIGENE_DIR
 
+
 def get_uigene_extension():
+    """
+    file suffix
+    :return:
+    """
     return _UNIGENE_FILE_ENDING
 
+
 def get_host_keywords():
+    """
+    create a dictionary for mapping common names to scientific names
+    :return:
+    """
     bos_tarus = "Bos_taurus"
     homo_sapiens = "Homo_sapiens"
     equus_caballus = "Equus_caballus"
@@ -41,32 +56,21 @@ def get_host_keywords():
     }
     return host_keywords
 
-# Error" doesn't conform to snake_case naming style
-# pylint: disable=C0103
 
-def get_error_string_4_IOError(file, arg):  # error when used get_fh(file, "1234")
+def get_error_string_4_unable_to_open(file, arg):
     """ Print the invalid argument type message and exits the program """
     print("Could not open the file: {} for type '{}'".format(file, arg))
+
 
 def get_error_string_4_ValueError():  # error when used get_fh(file, "1234")
     """ Print the invalid argument type message and exits the program """
     print("Invalid argument Value for opening a file for reading/writing")
 
+
 def get_error_string_4_TypeError():  # error when used get_fh(file, "r", "w")
     """ Print the invalid argument type message and exits the program """
-    print("Invalid argument Type passed in:")
+    print("Invalid argument Type")
 
-def get_error_string_4_PermissionError(file):
-    """ Print the invalid argument type message and exits the program """
-    print("Could not create the directory (permissions): {} ".format(file))
 
-def get_error_string_4_FileNotFoundError(file):
-    """ Print the invalid argument type message and exits the program """
-    print("Could not create the directory (invalid argument): {} ".format(file))
 
-def get_error_string_4_OSError(file):
-    """ Print the invalid argument type message and exits the program """
-    print("Could not create the directory (os error): {} ".format(file))
 
-def get_error_string_4_unable_to_open(file):
-    print("Could not open the directory (os error): {} ".format(file))
