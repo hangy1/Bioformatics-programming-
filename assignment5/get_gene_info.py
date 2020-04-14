@@ -34,7 +34,7 @@ def __print_scientific_name():
     print("\nHere is a (non-case sensitive) list of available Hosts by scientific name\n")
     list_scietific = tuple(enumerate(set(scientific_name), 1))
     for index, name in list_scietific:
-        print("{}.\t{}".format(index, name.capitalize()))
+        print("{:>2}. {}".format(index, name.capitalize()))
 
 
 def __print_common_name():
@@ -48,7 +48,7 @@ def __print_common_name():
     print("\nHere is a (non-case sensitive) list of available Hosts by common name\n")
     list_common = tuple(enumerate(sorted(set(common_name)), 1))
     for index, name in list_common:
-        print("{}.\t{}".format(index, name.capitalize()))
+        print("{:>2}. {}".format(index, name.capitalize()))
 
 
 def __print_host_directories():
@@ -74,11 +74,11 @@ def modify_host_name(temp_host_name):
         temp_host_name = "Homo_sapiens"
     else:
         temp_host_name = temp_host_name.lower()
-        if temp_host_name in keyword_dict.keys():
-            return keyword_dict.get(temp_host_name)
-        else:
-            __print_host_directories()
-            sys.exit()
+    if temp_host_name in keyword_dict.keys():
+        return keyword_dict.get(temp_host_name)
+    else:
+        __print_host_directories()
+        sys.exit()
 
 
 def get_gene_data(gene_name):
@@ -89,19 +89,21 @@ def get_gene_data(gene_name):
     '''
     argvs = get_cli_args()
     temp_host_name = argvs.HOST
+    temp_gene_name = argvs.GENE
     if temp_host_name is None:
         host_name = "Homo_sapiens"
         gene_name = "TGM1"
     else:
         host_name = modify_host_name(temp_host_name)
+        gene_name = temp_gene_name
     file = "/".join((config.get_unigene_directory(), \
                      host_name, gene_name + "." + config.get_uigene_extension()))
     if my_io.is_valid_gene_file_name(file):
         # using f-strings
         message = f"\nFound Gene {gene_name} for {host_name}"
     else:
-        message = f"Not found\n\
-        Gene {gene_name} does not exist for {host_name}. exiting now..."
+        print(f"Not found\n\
+Gene {gene_name} does not exist for {host_name}. exiting now...")
         sys.exit()
     fh_in = my_io.get_fh(file, "r")
     for line in fh_in:
@@ -125,7 +127,7 @@ def print_output(host_name="Homo_sapiens", gene_name="TGM1", \
     tissues_number = len(tissue_list)
     print(f"In {host_name}, There are {tissues_number} tissues that {gene_name} is expressed in:\n")
     for index, tissue in sorted(enumerate(tissue_list, 1)):
-        print(f"{index}. {tissue.capitalize()} ")
+        print(f"{index:>2}. {tissue.capitalize()} ")
 
 
 def main():
